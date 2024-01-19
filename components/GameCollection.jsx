@@ -5,7 +5,7 @@ const GameCollection = () => {
   return (
     <div className="flex flex-col h-screen gap-12 w-[50vw] m-auto justify-center text-xl font-semibold">
       <Link
-        href="/"
+        href="/trashGame"
         className="group border rounded-lg border-black p-4 hover:-translate-y-2 duration-200 text-center"
       >
         <h1>Trash Dump</h1>
