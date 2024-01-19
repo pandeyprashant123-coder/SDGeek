@@ -7,7 +7,7 @@ import { signOut } from 'next-auth/react'
 const Nav = () => {
     const {data:session} = useSession()
   return (
-    <div className='flex justify-between gap-3 p-5 bg-slate-300'>
+    <div className='flex justify-between gap-3 p-5 bg-slate-300 fixed w-screen'>
         <Link href="/">Home</Link>
         <div className='flex gap-3'>
             {

@@ -1,19 +1,27 @@
 "use client"
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import { useDrop } from 'react-dnd';
-const TrashCan = ({type,onDump}) => {
-    const [dumping, setDumping] = useState({
-        item:"incorrect",
-        value:false
-    })
+const TrashCan = ({type,onDump,worngDump,img}) => {
+    const [rdumping, setRdumping] = useState(false)
+    const [wdumping, setWdumping] = useState(false)
     const [{isOver}, drop] = useDrop({
         accept: 'trashSprite',
         drop: (item) => {
           if (item.id === type) {
             // Trigger onDump callback only when trash is dropped into the correct can
             onDump();
-            setDumping(p=>p.item=="correct")
-
+            setRdumping(true)
+            setTimeout(() => {
+                setRdumping(false);
+              }, 700);
+          }
+          else{
+            worngDump()
+            setWdumping(true)
+            setTimeout(() => {
+                setWdumping(false);
+              }, 700);
           }
         },
         collect:(monitor)=>({
@@ -21,25 +29,20 @@ const TrashCan = ({type,onDump}) => {
         })
       });
       useEffect(()=>{
+        
+      },[isOver])
+      
 
-      },[drop])
-
-    console.log(isOver)
+    // console.log(isOver)
       return (
         <div
           ref={drop}
-          style={{
-            width: '100px',
-            height: '100px',
-            backgroundColor: type === 'organic' ? 'green' : 'blue',
-            textAlign: 'center',
-            lineHeight: '100px',
-          }}
           className={`${isOver &&"scale-110"}`}
         >
-          {type}Trash Can
+          <Image src={img} width={200} height={10} className={`text-black ${wdumping && "animate-bounce-slow"}`}/>
 
-          <p className={`${dumping.value?"block":"hidden"}`}>{dumping.item} can</p>
+          <p className={`${rdumping?"block bg-yellow-500":"hidden "} absolute bottom-12 text-white p-2 rounded-lg font-semibold`}>correct can</p>
+          <p className={`${wdumping?"block bg-red-900":"hidden "} absolute bottom-12 text-white p-2 rounded-lg font-semibold`}>Incorrect can</p>
         </div>
       )
 }

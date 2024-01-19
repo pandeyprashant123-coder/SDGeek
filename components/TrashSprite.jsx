@@ -1,8 +1,9 @@
 import React from 'react'
 import { useDrag } from 'react-dnd';
+import Image from 'next/image';
 
 const TrashSprite = ({type,onDump}) => {
-    const [{ isDragging }, drag] = useDrag({
+    const [{ isDragging }, drag,preview] = useDrag({
         type: 'trashSprite',
         item:{id:type},
         end: (item, monitor) => {
@@ -17,20 +18,30 @@ const TrashSprite = ({type,onDump}) => {
           isDragging: !!monitor.isDragging(),
         }),
       });
+      console.log(isDragging)
+      
     
       return (
+        <>
+            {preview ? (
         <div
-          ref={drag}
+          ref={preview}
           style={{
-            width: '50px',
-            height: '50px',
-            backgroundColor: 'gray',
-            opacity: isDragging ? 0.5 : 1,
-            cursor: 'move',
+            display: 'none', // Hide the default preview
           }}
-        >
-          Trash Sprite
-        </div>
+        />
+      ) : null}
+            <div
+            ref={drag}
+            className={`cursor-grab bg-transparent ${isDragging &&"opacity-0"}`}
+            style={{
+                userSelect:"none",
+                backgroundColor:"transparent"
+            }}
+            >
+                <Image src="/assets/organic1.png" width={200} height={100}/>
+            </div>
+        </>
       );
 }
 
