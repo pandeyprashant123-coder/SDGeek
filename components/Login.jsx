@@ -37,8 +37,25 @@ const Auth = () => {
     }
 
   };
+  const handleClick=async()=>{
+    try {
+      const res = await fetch('/api/getScore',{
+        method:"GET",
+        headers:{
+          "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        email:session?.user.email
+      })
+      })
+      const data = await res.json()
+      
+    } catch (error) {
+      
+    }
+  }
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center pt-20">
       <form
         action=""
         onSubmit={handleSubmit}

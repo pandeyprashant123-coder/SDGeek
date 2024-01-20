@@ -14,7 +14,7 @@ const TrashCan = ({type,onDump,worngDump,img}) => {
             setRdumping(true)
             setTimeout(() => {
                 setRdumping(false);
-              }, 700);
+              }, 1000);
           }
           else{
             worngDump()
@@ -39,6 +39,18 @@ const TrashCan = ({type,onDump,worngDump,img}) => {
           ref={drop}
           className={`${isOver &&"scale-110"}`}
         >
+            {rdumping &&(
+
+                <audio autoPlay loop src="/assets/correct.wav">
+        </audio>
+            ) 
+                }
+            {
+                wdumping &&(
+                    <audio autoPlay loop src="/assets/wrong.mp3">
+        </audio>
+                )
+            }
           <Image src={img} width={200} height={10} className={`text-black ${wdumping && "animate-bounce-slow"}`}/>
 
           <p className={`${rdumping?"block bg-yellow-500":"hidden "} absolute bottom-12 text-white p-2 rounded-lg font-semibold`}>correct can</p>

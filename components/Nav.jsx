@@ -1,11 +1,12 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
 
 const Nav = () => {
     const {data:session} = useSession()
+
   return (
     <div className='flex justify-between gap-3 p-5 bg-slate-300 fixed w-screen'>
         <Link href="/">Home</Link>

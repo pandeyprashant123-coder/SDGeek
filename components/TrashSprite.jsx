@@ -3,9 +3,10 @@ import { useDrag } from 'react-dnd';
 import Image from 'next/image';
 
 const TrashSprite = ({type,onDump}) => {
+
     const [{ isDragging }, drag,preview] = useDrag({
         type: 'trashSprite',
-        item:{id:type},
+        item:{id:type.split(".")[0].split('').slice(0,-1).join('')},
         end: (item, monitor) => {
           const dropResult = monitor.getDropResult();
     
@@ -18,7 +19,7 @@ const TrashSprite = ({type,onDump}) => {
           isDragging: !!monitor.isDragging(),
         }),
       });
-      console.log(isDragging)
+    //   console.log(isDragging)
       
     
       return (
@@ -39,7 +40,8 @@ const TrashSprite = ({type,onDump}) => {
                 backgroundColor:"transparent"
             }}
             >
-                <Image src="/assets/organic1.png" width={200} height={100}/>
+                
+                <Image src={`/assets/${type}`} width={150} height={100}/>
             </div>
         </>
       );

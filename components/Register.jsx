@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { UseDispatch } from "react-redux";
 
 const inititalState = {
   firstName: "",
@@ -34,6 +35,13 @@ const Auth = () => {
             },
             body:JSON.stringify(formData)
         })
+        // const res1 = await fetch('/api/score/new',{
+        //   method:"POST",
+        //   body:JSON.stringify({
+        //     score:0,
+        //     userId:session?.user.id
+        //   })
+        // })
         if(res.ok){
             const form=e.target;
             form.reset()
@@ -52,7 +60,7 @@ const Auth = () => {
 
   };
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center pt-10">
       <form
         action=""
         onSubmit={handleSubmit}

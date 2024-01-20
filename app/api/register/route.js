@@ -16,10 +16,11 @@ try {
     const hashedPassword = await bcrypt.hash(password,12)
 
     const result = await User.create({email,password:hashedPassword,name:`${firstName} ${lastName}`})
-
+    console.log(result)
     // await User.create({name,email,password})
     return NextResponse.json({result:result},{message:"user created"},{status:201})
 } catch (error) {
     console.log(error)
 }
 }
+

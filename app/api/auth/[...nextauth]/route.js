@@ -14,7 +14,7 @@ export const authOptions = {
 
             async authorize(credentials){
                 const {email,password} = credentials
-                // console.log(credentials)
+                console.log(credentials)
                 try {
                     await connectToDB()
                     const existingUser = await User.findOne({email})
