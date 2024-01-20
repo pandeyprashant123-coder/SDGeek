@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="overflow-hidden">
+      <body className="overflow-hidden" style={{backgroundImage:'url(assets/TrashBackground.jpg)', backgroundSize:"cover"}}>
         <ReduxProvider>
           <AuthProvider>
             <Nav/>

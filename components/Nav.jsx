@@ -8,7 +8,7 @@ const Nav = () => {
     const {data:session} = useSession()
 
   return (
-    <div className='flex justify-between gap-3 p-5 bg-slate-300 fixed w-screen'>
+    <div className='flex justify-between gap-3 py-5 px-10 bg-slate-300 fixed w-screen z-20 text-xl font-semibold'>
         <Link href="/">Home</Link>
         <div className='flex gap-3'>
             {

@@ -5,8 +5,9 @@ import { useSession } from 'next-auth/react'
 import { useEffect } from 'react'
 import { UseDispatch, useDispatch } from 'react-redux'
 import { updateIt } from './redux/features/counterSlice'
+import MainScreen from '@/components/MainScreen'
+import Leaderboard from '@/components/Leaderboard'
 
-import Coin from '@/components/Coin'
 
 export default function Home() {
   const {data:session} = useSession()
@@ -27,8 +28,9 @@ export default function Home() {
     
 },[session])
   return (
-    <main>
-      <Coin/>
+    <main className='w-screen h-screen flex flex-col justify-center items-center'>
+
+      <Leaderboard />
     </main>
   )
 }

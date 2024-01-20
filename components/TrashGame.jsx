@@ -13,22 +13,13 @@ import { increment,decrement } from "@/app/redux/features/counterSlice";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import {useRouter} from "next/navigation";
+import Video from "./Video";
 
-const Popup = () => {
-    const [showPopup, setShowPopup] = useState(true);
+const Popup = ({audio}) => {
     
-    useEffect(() => {
-      const timeoutId = setTimeout(() => {
-        setShowPopup(false);
-      }, 1000);
-  
-      return () => {
-        clearTimeout(timeoutId);
-      };
-    }, []);
   
     return (
-      <div className={`popup ${showPopup ? 'translate-x-0' : 'translate-x-full scale-95'} duration-150 ease-linear overflow-hidden absolute rounded-lg h-[20vh] w-[50vw] top-36 flex flex-col gap-3 p-5 bg-yellow-300`}>
+      <div className={`popup duration-150 ease-linear overflow-hidden absolute rounded-lg top-36 flex flex-col gap-3 p-5 bg-yellow-300`}>
         <p className="text-green-800 font-bold text-2xl">Green is for organic waste</p>
         <p className="text-blue-700 font-bold text-2xl">Blue is for inorganic waste</p>
       </div>
@@ -36,7 +27,7 @@ const Popup = () => {
   };
 
 const getRandomSprite =()=>{
-    const spriteImages = ['organic1.png', 'organic2.png', 'organic3.png','organic4.png','organic5.png','inorganic1.png','inorganic3.png','inorganic2.png'];
+    const spriteImages = ['organic1.png', 'organic2.png', 'organic3.png','organic4.png','organic5.png','organic6.png','organic7.png','organic8.png','organic5.png','inorganic1.png','inorganic2.png','inorganic3.png','inorganic4.png','inorganic5.png','inorganic6.png'];
     return spriteImages[Math.floor(Math.random() * spriteImages.length)];
 }
 const TrashGame = () => {
@@ -44,6 +35,7 @@ const TrashGame = () => {
   const router = useRouter()
     const [currentSprite, setCurrentSprite] = useState(getRandomSprite())
     const [fire, setFire] = useState(false)
+    const [audio,setAudio] = useState(true)
     const count = useSelector((state) => state.counter.value)
     const globalCount = useSelector((state) => state.counter.globalScore)
   const dispatch = useDispatch()
@@ -85,24 +77,31 @@ const TrashGame = () => {
   
   useEffect(() => {
     if (count % 5 === 0 && count !== 0) {
-      // Trigger a rerender or perform any other action
-      // For example, dispatch an increment action to update the globalScore
       dispatch(increment());
     }
   }, [count, dispatch]);
   return (
     <div className="h-screen w-screen flex flex-col pt-20 items-center " style={{backgroundImage:'url(/assets/TrashBackground.jpg)', backgroundSize:"cover"}}>
-        <Popup/>
-        <audio autoPlay loop src="/assets/background.wav">
-        </audio>
+        <Popup audio={audio}/>
+        {
+          audio&&(
+            <div className="absolute top-28">
+            <Video src={"degradable_waste"}/>  
+              <button onClick={()=>setAudio(false)} className="bg-white font-bold text-xl px-2 py-1">Skip&rarr;</button>
+            </div>
+          )
+        }
+        {/* <audio autoPlay loop src="/assets/background.wav">
+        </audio> */}
         <DndProvider backend={HTML5Backend}>
         <div style={{textAlign: "center" }} className="bg-yellow-600 text-white font-bold text-lg p-2 rounded-md">
           <p>Score: {count}</p>
             {fire &&(
-                <Image src="/assets/Fire.gif" width={70} height={1} className="absolute top-20 translate-x-16"/>
+                <audio autoPlay loop src="/assets/pop.mp3">
+                </audio>
             )}
         </div>
-        <div className="flex justify-between w-screen px-28 mt-40 items-end">
+        <div className="flex justify-between w-screen px-28 mt-[20rem] items-end">
             <div className="ml-10">
             <TrashSprite type={currentSprite} onDump={handleCorrectDump} />
             </div>

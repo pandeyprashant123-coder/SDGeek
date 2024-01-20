@@ -1,18 +1,13 @@
 import { connectToDB } from "@/utils/database";
-import Score from "@/models/game";
+import User from "@/models/user";
+import { NextResponse } from "next/server";
 
-export const POST = async(req)=>{
-    const{score,userId} = await req.json()
+export const GET = async(req)=>{
 
     try {
         await connectToDB()
-        const newScore = new Score({
-            score,
-            creator:userId
-        })
-        await newScore.save()
-        return new Response(JSON.stringify(newScore),{status:201})
-
+        const leaderBoardData = await User.find().sort({score:-1})
+        return NextResponse.json({leaderBoardData},{message:"user "},{status:201})
     } catch (error) {
         console.log(error)
     }
